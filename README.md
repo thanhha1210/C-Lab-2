@@ -1,94 +1,183 @@
-# C-Lab-2
-C Lab 2
+Lab 1a: Pointers in C
+=====================
 
-Introduction to Memory in C
-===========================
- 
-**Important:** You may work with a partner, but you will turn in the lab individually. Please put the netID of the person you worked with, if applicable, in a comment at the top of your submitted file.
+Assigned
 
-Overview
---------
+Friday, January 10, 2020
 
-This lab will introduce you to dealing with memory in C. There are three sections to this lab: arrays, pointers, and sorting. After completing each section, have a TA check over your work before you proceed.
+Due Date
 
-Developing C code requires a C compiler and debugger. You may develop on your own machine if you have gcc and gdb installed. However, you should always make sure that your work compiles and runs in the designated course computing environment before submitting. Information about setting up the computing environment can be found on the Resources page.
+_Tuesday, January 21, 2020 at 11:59 pm_
 
-To begin, find the `lab2.c` file in your github repository and pull it into your VM or CSUG account. It contains some C functions as well as function stubs you will need to implement. By the end of this lab, you will have completed a working implementation of the _selection sort_ algorithm, and will have a working program that demonstrates the sort running on arrays of different sizes.
+  
 
-After completing each function, compile your program with `gcc -std=c99 -Wall -Werror lab2.c -o lab2`; you can then run it with `./lab2`.
+### Overview
 
-As a way to help you debug and visualize what is going on in your code, feel free to use Python Tutor's [C visualization tool](https://goo.gl/buPYHE).
+**Learning Objectives:**
 
-**A helpful resource before starting this lab is looking through the ***Powerpoint***
+*   Gain familiarity with pointers and pointer arithmetic.
 
-Part 1: Arrays
---------------
+Pointers are a critical part of C and necessary for understanding assembly code (Lab 2-3) and memory allocation (Lab 5).
 
-Arrays in C are similar to arrays in other programming languages you may be familiar with, but with one important difference. In C, arrays are simply _contiguous blocks of memory_. In general, there is no way to determine the length of an array from the array itself. Therefore, it is the _programmer's responsibility_ to make sure the length of the array is known and respected so the program does not try to access an index that is outside the valid range of the array.
 
-Arrays in C are indexed using brackets. `arr[idx]` accesses the element of array `arr` at index `idx`. C arrays are zero-indexed, so the first element in an array is `arr[0]`. Since one _cannot_ find the length of an array from the array alone, array handling functions in C usually receive the array's length as a separate parameter.
+### Lab 1a Instructions
 
-> Using your new knowledge of arrays in C, implement the `smallest_idx` function to return the index of the smallest element in an array. Be careful not to step out of bounds!
+`pointer.c` contains a skeleton for some programming puzzles, along with a comment block that describes exactly what the functions must do and what restrictions there are on their implementation. Your assignment is to complete each function skeleton according to the following rules:
 
-Part 2: Pointers
-----------------
+*   only straightline code (i.e., no loops or conditionals) unless otherwise stated. Look for "Control Constructs" under `ALLOWED` in `pointer.c` comments.
+*   a limited number of C arithmetic and logical operators (described in `pointer.c` comments)
+*   the C bit shift operators (`<<` and `>>`) may be needed for some problems but will not be covered in lecture until next Wednesday
+*   no constants larger than 8 bits (i.e., 0 - 255 inclusive) are allowed
+*   feel free to use "(", ")", and "=" as much as you want
+*   **_you are permitted to use casts for these functions_**
 
-Pointers are central to C programming, yet are often one of the most foreign concepts to new C coders. A pointer is an integer that represents the address of an object in memory. Pointers in C are _typed_, which means the pointer's type includes the type of the value it points to. The type of a pointer is the type of the value it points to, followed by a `*`. For example, `int* ptr;` declares a pointer to an int, or an "int pointer".
+You will start working with basic pointers and use them to compute the size of different data items in memory, modify the contents of an array, and complete a couple of pointer "puzzles" that deal with alignment and array addresses.
 
-To access the value (memory location) referenced by a pointer, the `*` character is again used, as the "dereference" operator. The following simple function returns the int value pointed to by an int pointer:
+* * *
 
-```C
-int get\_val(int \*ptr) {
-    return \*ptr;
-}
-```
+  
 
-The dereference (`*`) operator is also used to assign a value to the memory location pointed to by a pointer, as seen in the below function;
+### Using Pointers
 
-```C
-void set\_val(int \*ptr, int val) {
-    \*ptr = val;
-}
-```
+This section describes the functions you will be completing in `pointer.c` found in the `lab1a` folder you downloaded. Refer to the file `pointer.c` itself for more complete details.
 
-Lastly, the "address of" (`&`) operator is used to obtain a pointer to a variable. It returns the address of the value given to it. Try to work out in your head what the following main function would print:
+#### Pointer Arithmetic
 
-```C
-int main() {
-    int x = 5;
-    int \*ptr = &x; // obtain a pointer to x
-    printf("%d\\n", get\_val(ptr));
-    set\_val(ptr, 4);
-    printf("%d\\n", x);
-}
-```
+The first three functions in `pointer.c` ask you to compute the size (how much memory a single one takes up, in bytes) of various data elements (ints, doubles, and pointers). You will accomplish this by noting that arrays of these data elements allocate contiguous space in memory so that one element follows the next.
 
-> Using your new knowledge of pointers in C, implement the `swap` function, which takes two int pointers as parameters and swaps the ints stored at the two addresses.
+#### Manipulating Data Using Pointers
 
-Part 3: Sorting
----------------
+The next two functions in `pointer.c` challenge you to manipulate data in new ways with your new knowledge of pointers.
 
-Selection sort is a sorting algorithm that does an in-place comparison sort. The algorithm divides the input array into two parts: the subarray of items already sorted, which is built up from left to right at the front of the array, and the subarray of items remaining to be sorted that occupy the rest of the array. Initially, the sorted subarray is empty and the unsorted subarray is the entire array. The algorithm proceeds by finding the smallest element in the unsorted subarray, exchanging it with the leftmost unsorted element (putting it in sorted order), and moving the subarray boundaries one element to the right.
+The `swapInts` function in `pointer.c` asks you to swap the values that two given pointers point to, without changing the pointers themselves (i.e. they should still point to the same memory addresses).
 
-Here is an example of this sort algorithm sorting five elements:
+The `changeValue` function in `pointer.c` asks you to change the value of an element of an array using only the starting address of the array. You will add the appropriate value to the pointer to create a new pointer to the data element to be modified.**_You are not permitted to use \[\] syntax to access or change elements in the array anywhere in the `pointer.c` file._**
 
-64 25 12 22 11 // this is the initial, starting state of the array
+#### Pointers and Address Ranges
 
-11 25 12 22 64 // sorted sublist = {11}
+The next two functions in `pointer.c` ask you to determine whether pointers fall within certain address ranges, defined by aligned memory blocks or arrays.
 
-11 12 25 22 64 // sorted sublist = {11, 12}
+For the first of these two functions, you will determine if the addresses stored by two pointers lie **_within the same block_** of 64-byte aligned memory. The following are some examples of parameters and returns for calls to this function.
 
-11 12 22 25 64 // sorted sublist = {11, 12, 22}
+*   `ptr1: 0x0`  
+    `ptr2: 0x3F`  
+    `return: 1`
+*   `ptr1: 0x0`  
+    `ptr2: 0x40`  
+    `return: 0`
+*   `ptr1: 0x3F`  
+    `ptr2: 0x40`  
+    `return: 0`
+*   `ptr1: 0x3CE`  
+    `ptr2: 0x3EF`  
+    `return: 1`
+*   `ptr1: 0x3CE`  
+    `ptr2: 0x404`  
+    `return: 0`
 
-11 12 22 25 64 // sorted sublist = {11, 12, 22, 25}
+For the last function you will determine if the address stored in `ptr` is pointing to a byte that makes up some part of an array element for the passed array. The byte does not need to be the first byte of the array element that it is pointing to. That description is a bit wordy, so here are some examples.
 
-11 12 22 25 64 // sorted sublist = {11, 12, 22, 25, 64}
+*   `intArray: 0x0`  
+    `size: 4`  
+    `ptr: 0x0`  
+    `return: 1`
+*   `intArray: 0x0`  
+    `size: 4`  
+    `ptr: 0xF`  
+    `return: 1`
+*   `intArray: 0x0`  
+    `size: 4`  
+    `ptr: 0x10`  
+    `return: 0`
+*   `intArray: 0x100`  
+    `size: 30`  
+    `ptr: 0x12A`  
+    `return: 1`
+*   `intArray: 0x100`  
+    `size: 30`  
+    `ptr: 0x50`  
+    `return: 0`
+*   `intArray: 0x100`  
+    `size: 30`  
+    `ptr: 0x18C`  
+    `return: 0`
 
-(Source: [Wikipedia](http://en.wikipedia.org/wiki/Selection_sort))
+Please post on Piazza if you are having trouble understanding any of these examples!
 
-> Implement the `selection_sort` function using your `smallest_idx` and `swap` functions, following the outline in the `lab8.c` file.
+#### Byte Traversal
 
-Useful Tool to Visualize C Code
--------------------------------
+The next two questions in `pointer.c` have you reading and writing data by understanding the layout of the bytes.
 
-C code sometimes seems to be hard to understand as we just start to learn it. A good way to get a more comprehensive understanding of C code is to use a C code visualization (https://www.onlinegdb.com/online_c_compiler) we recommand a good tool for C code visualization. It can be useful for debugging also!
+In C strings do not have knowledge of how long they are. In order to find out we must calculate it for ourselves. All strings in C are arrays of characters that end with a null terminator character - `'\0'`. The `stringLength` function has you return the length of a string, given a pointer to its beginning. You **are** allowed to use loops for this one. Also note that the null terminator character does **_NOT_** count as part of the string length.
+
+The `endianExperiment` function has you set the value a pointer points to to the number 351351. Remember that we work with little endian data storage, and what that means.
+
+#### Selection Sort
+
+The final part of the lab has you implement `selectionSort`. Selection sort works by effectively partitioning an array into a sorted section, followed by an unsorted section. It repeatedly finds (and selects) the minimum element in the unsorted section, and moves it to the end of the sorted section (`swapInts` might be useful for this). The pseudo code might look something like this:
+
+    arr - an array
+    n - the length of arr
+    
+    for i = 0 to n - 1
+      minIndex = i
+      for  j = i + 1 to n - 1
+          if arr[minIndex] > arr[j]
+              minIndex = j
+          end if
+      end for
+      Swap(arr[i], arr[minIndex])
+    end for
+
+Note that you **are** allowed to use loops and if statements in this one.
+
+* * *
+
+  
+
+### Checking Your Work
+
+We have included the following tools to help you check the correctness of your work:
+
+*   `ptest.c` is a test harness for `pointer.c`. You can test your solutions like this:
+    
+        $ make ptest
+        $ ./ptest
+    
+    This only checks if your solutions return the expected result. _We may test your solution on inputs that ptest does not check by default and we will review your solutions to ensure they meet the restrictions of the assignment._
+    
+*   `dlc.py` is a Python script that will check for compliance with the coding rules. The usage is:
+    
+        $ python dlc.py
+    
+*   The `dlc` program enforces a stricter form of C declarations than is the case for C++ or that is enforced by `gcc`. In particular, in a block (what you enclose in curly braces) all your variable declarations must appear before any statement that is not a declaration. For example, `dlc` will complain about the following code:
+    
+        int foo(int x) {
+          int a = x;
+          a *= 3;     /* Statement that is not a declaration */
+          int b = a;  /* ERROR: Declaration not allowed here */
+        }
+    
+    Instead, you must declare all your variables first, like this:
+    
+        int foo(int x) {
+          int a = x;
+          int b;
+          a *= 3;
+          b = a;
+        }
+    
+*   The `dlc` program will also complain about binary constants such as `0b10001000`, so avoid using them.
+    
+
+  
+
+### Lab 1a Reflection
+
+Make sure your answers to these questions are included in the file `lab1Areflect.txt`!
+
+In both `lab0.c` and `pointer.c`, we saw the effects of pointers and pointer arithmetic:
+
+1.  Briefly describe why pointer arithmetic is _useful/beneficial_ (not just its definition).  \[3 pt\]
+2.  Think about how you calculated the actual difference (in bytes) between two addresses in C _without any compiler warnings_. Briefly explain why each step was necessary?  \[3 pt\]
+3.  Notice that the parameters to the function `swapInts` were both pointers. Explain why this is necessary. What would happen if the parameters were integers?  \[3 pt\]
