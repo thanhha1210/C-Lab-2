@@ -48,217 +48,268 @@ INTEGER CODING RULES:
   Each "Expr" is an expression using ONLY the following:
   1. Integer constants 0 through 255 (0xFF), inclusive. You are
      not allowed to use big constants such as 0xffffffff.
-     However, you are allowed to combine constants to values greater
-     than 255 or less than 0. e.g. 250 + 250 = 500, so long as
-     the operator you are using to combine the constants is listed as
-     "legal" at the top of the method you are writing.
+     However you are allowed to add constants to values greater
+     than 255. e.g. 250+250 = 500.
   2. Function arguments and local variables (no global variables).
-  3. Any operators listed as "allowed" at the top of the method you are writing.
-  4. casting.
+  3. For 1-3, only use the following:
+     Pointer operations '*' and  '&'. (Note that these are only for
+     dereferencing and taking addresses, bitwise & is not allowed).
+     Binary integer operations - + *.
+     Unary integer operation !.
+     For the last three, you may also use shifts (<<, >>), ~, ==, and ^.
 
   Some of the problems restrict the set of allowed operators even further.
   Each "Expr" may consist of multiple operators. You are not restricted to
   one operator per line.
 
   You are expressly forbidden to:
-  1. Use any control constructs such as if, do, while, for, switch, etc. (unless
-     otherwise stated).
+  1. Use any control constructs such as if, do, while, for, switch, etc.
   2. Define or use any macros.
   3. Define any additional functions in this file.
-  4. Call any functions (unless otherwise stated).
-  5. Use any operators not "allowed" at the top of the method you are writing.
+  4. Call any functions.
+  5. Use any other operations, such as &&, ||, ?:, sizeof,
+     != or binary (bitwise & or |)
+  6. Use the [] operator to index into arrays for reading or writing.
 
   You may assume that your machine:
   1. Uses 2s complement, 32-bit representations of integers.
   2. Performs right shifts arithmetically.
   3. Has *undefined* behavior when shifting by a negative amount or an amount
-     greater than or equal to the number of bits in the value being shifted.
-     e.g. For x >> n, shifts by n < 0 or n >= *size of x* are undefined
-     e.g. if x is a 32-bit int, shifts by >= 32 bits are undefined
-     Undefined means you do not know what result you will get from the operation.
+  greater than or equal to the number of bits in the value being shifted.
+  e.g. For x >> n, shifts by n < 0 or n >= *size of x* are undefined
+  e.g. if x is a 32-bit int, shifts by >= 32 bits are undefined
+  Undefined means you do not know what result you will get from the operation.
 #endif
 
 /*
  * STEP 2: Modify the following functions according the coding rules.
+ *
+ * Test the code below in your own 'main' program.
+ *
+ */
+
+/*
+ * For the following exercises remember:
+ * Pointer operations *, & are allowed and should be used vigorously.
+ * Pointer operation & is for taking addresses, bitwise & is still not allowed.
+ * Do not use the [] operator to index into arrays for reading or writing.
  */
 
 /*
  * Return the size of an integer in bytes.
- *
- * ALLOWED:
- *   Pointer operators: *, &
- *   Binary integer operators: -, +, *
- *   Unary integer operators: !
- *   Shorthand operators based on the above: ex. +=, *=, ++, --, eFDIStc.
- *
- * DISALLOWED:
- *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <, >, <<, >>, ==, !=, ^, /, %
- *   Unary integer operators: ~, -
  */
-int intSize() {
+int intSize()
+{
   int intArray[10];
-  int * intPtr1;
-  int * intPtr2;
+  int *intPtr1;
+  int *intPtr2;
   // Write code to compute size of an integer.
-
-  return 2;
+  // intPtr1 stores the address for the first element
+  // intPtr2 stores the address for the second element through pointer
+  // arithmetic (1 * sizeof(int)) the distance between this two elements
+  // indicate sizeof(int)
+  long int res;
+  intPtr1 = intArray;
+  intPtr2 = intPtr1 + 1;
+  res = (long int)intPtr2 - (long int)intPtr1;
+  return res;
 }
 
 /*
  * Return the size of a double in bytes.
- *
- * ALLOWED:
- *   Pointer operators: *, &
- *   Binary integer operators: -, +, *
- *   Unary integer operators: !
- *   Shorthand operators based on the above: ex. +=, *=, ++, --, etc.
- *
- * DISALLOWED:
- *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <, >, <<, >>, ==, !=, ^, /, %
- *   Unary integer operators: ~, -
  */
-int doubleSize() {
+int doubleSize()
+{
   double doubArray[10];
-  double * doubPtr1;
-  double * doubPtr2;
+  double *doubPtr1;
+  double *doubPtr2;
   // Write code to compute size of a double.
-
-  return 2;
+  // doubPtr1 stores the address for the first element
+  // doubPtr2 stores the address for the second element through pointer
+  // arithmetic (1 * sizeof(type)) the distance between this two elements
+  // indicate sizeof(double)
+  long int res;
+  doubPtr1 = doubArray;
+  doubPtr2 = doubPtr1 + 1;
+  res = (long int)doubPtr2 - (long int)doubPtr1;
+  return res;
 }
 
 /*
  * Return the size of a pointer in bytes.
- *
- * ALLOWED:
- *   Pointer operators: *, &
- *   Binary integer operators: -, +, *
- *   Unary integer operators: !
- *   Shorthand operators based on the above: ex. +=, *=, ++, --, etc.
- *
- * DISALLOWED:
- *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <, >, <<, >>, ==, !=, ^, /, %
- *   Unary integer operators: ~, -
  */
-int pointerSize() {
-  double * ptrArray[10];
-  double ** ptrPtr1;
-  double ** ptrPtr2;
+int pointerSize()
+{
+  double *ptrArray[10];
+  double **ptrPtr1;
+  double **ptrPtr2;
+  long int res;
   // Write code to compute size of a pointer.
-
-  return 2;
+  // ptrPtr1 sotores the address for the first element
+  // ptrPtr2 stores the address for the second element through pinter arithmetic
+  // (1 * sizeof(pointer)) the distance between two elements indicate
+  // sizeof(pointer)
+  ptrPtr1 = ptrArray;
+  ptrPtr2 = ptrPtr1 + 1;
+  res = (long int)ptrPtr2 - (long int)ptrPtr1;
+  return res;
 }
 
 /*
- * Given pointers to two distinct variables write a function to swap the values
- * of said variables.
- *
- * ALLOWED:
- *   Pointer operators: *, &
- *   Binary integer operators: -, +, *
- *   Unary integer operators: !
- *   Shorthand operators based on the above: ex. +=, *=, ++, --, etc.
- *
- * DISALLOWED:
- *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <, >, <<, >>, ==, !=, ^, /, %
- *   Unary integer operators: ~, -
+ * For the 3 remaining problems you are allowed to use shifts (<<, >>), ~, ==,
+ * and ^ in addition to the previously specified operators. The previous
+ * restrictions still apply.
  */
-void swapInts(int *ptr1, int *ptr2) {
-  // Your code here
-}
 
 /*
- * Modify intArray[5] to be the value 351 using only intArray and pointer arithmetic.
- *
- * ALLOWED:
- *   Pointer operators: *, &
- *   Binary integer operators: -, +, *, <<, >>, ==, ^
- *   Unary integer operators: !, ~
- *   Shorthand operators based on the above: ex. +=, *=, ++, --, ~= etc.
- *
- * DISALLOWED:
- *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <, >, !=, /, %
- *   Unary integer operators: -
+ * Modify intArray[5] to be the value 351 using only intArray and pointer
+ * arithmetic.
  */
-int changeValue() {
+int changeValue()
+{
   int intArray[10];
-  int * intPtr1 = intArray;
+  int *intPtr1 = intArray;
   // Remember not to use constants greater than 255.
   // Remember to use * to dereference. You cannot use '[<index>]' syntax.
-
+  // (351) = Ox 0001 0101 1111
+  // intPtr5 points to the address of 5th element by (first elemnt address +  5
+  // * sizeof(int))
+  // * => dereference, change the value stored in the address
+  int val1 = 0x1;
+  int val2 = 0x5F;
+  int val = (val1 << 8) + val2;
+  int *intPtr5 = intPtr1 + 5;
+  *intPtr5 = val;
   return intArray[5];
 }
 
 /*
  * Return 1 if the addresses stored in ptr1 and ptr2 are within the
- * *same* 64-byte aligned  block of memory. Check the spec for examples if you are
- * confused about what this means. Return zero otherwise.
- * Operators / and % and loops are NOT allowed.
- *
- * ALLOWED:
- *   Pointer operators: *, &
- *   Binary integer operators: -, +, *, <<, >>, ==, ^
- *   Unary integer operators: !, ~
- *   Shorthand operators based on the above: ex. <<=, *=, ++, --, etc.
- *
- * DISALLOWED:
- *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <, >, !=, /, %
- *   Unary integer operators: -
+ * *same* 64-byte aligned  block of memory. Check the spec for examples if you
+ * are confused about what this means. Return zero otherwise. Operators / and %
+ * and loops are NOT allowed.
  */
-int withinSameBlock(int *ptr1, int *ptr2) {
+int withinSameBlock(int *ptr1, int *ptr2)
+{
   // Your code here
-  return 2;
+  // power(2,6) = 64, which could represet 64 addresses
+  // the main idea is to match the first 26 bits(starting from the MSB) and
+  // ignore the remaining 6 bits right shift 6 bits to ignore the last 6 bits
+  // and make comparison among the rest bits
+  long int p1 = (long int)(ptr1) >> 6;
+  long int p2 = (long int)(ptr2) >> 6;
+  return (p1 == p2);
 }
 
 /*
- * Return 1 if ptr points to an element within the specified intArray, 0 otherwise.
- * Pointing anywhere in the array is fair game, ptr does not have to
- * point to the beginning of an element. Check the spec for examples if you are 
+ * Return 1 if ptr points to an element within the specified intArray, 0
+ * otherwise. Pointing anywhere in the array is fair game, ptr does not have to
+ * point to the beginning of an element. Check the spec for examples if you are
  * confused about what this method is determining.
  * size is the size of intArray in number of ints. Can assume size != 0.
  * Operators / and % and loops are NOT allowed.
- *
- * ALLOWED:
- *   Pointer operators: *, &
- *   Binary integer operators: -, +, *, <<, >>, ==, ^
- *   Unary integer operators: !, ~
- *   Shorthand operators based on the above: ex. <<=, *=, ++, --, etc.
- *
- * DISALLOWED:
- *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <, >, !=, /, %
- *   Unary integer operators: -
  */
-int withinArray(int * intArray, int size, int * ptr) {
+int withinArray(int *intArray, int size, int *ptr)
+{
   // Your code here
-  return 2;
+  // ptr points to the ready-to-check element, intArray points to the first
+  // element of the array sign1 indicate the difference from the ready-to-check
+  // element to the first element sign2 indicate the difference from the last
+  // element to the ready-to-check element if either sign1 or sign2 is 1, the
+  // XOR will return 1, which indicate the two differences are difference and
+  // the ready-to-check is not within the array. The result should return 0,
+  // logic 'not' is required here. otherwise, the XOR will return 0, which
+  // indicate the two differences are the same and the ready-to-check is within
+  // the array. The result should reutrn 1, logic not is required here.
+  int distance = ptr - intArray;
+  int sign1 = distance >> 31;
+  int sign2 = (size - 1 - distance) >> 31;
+  return !(sign1 ^ sign2);
 }
 
+/**
+ * Swaps the values stored at the memory addresses pointed to by a and b.
+ */
+void swapInts(int *a, int *b)
+{
+  // TODO: implement me. Remember to declare any needed local variables.
+  int a_val = *a;
+  int b_val = *b;
+  *a = b_val;
+  *b = a_val;
+}
+
+/**
+ * Performs an in-place selection sort on int array arr with length len.
+ */
 /*
- * In C characters are are terminated by the null character ('\0')
- * given a pointer to the start of the string return the length of this string.
- * (The null character is not counted as part of the string length.)
+ * Selection sort is a sorting algorithim that works by partitioning the array
+ * into a sorted section and unsorted section. Then it repeatedly selects the
+ * minimum element from the unsorted section and moves it to the end of the
+ * sorted section.
+ *
+ * So the pseudo-code might look something like this:
+ * arr - an array
+ * n - the length of arr
+ *
+ * for i = 0 to n - 1
+ *   minIndex = i
+ *   for  j = i + 1 to n - 1
+ *       if arr[minIndex] > arr[j]
+ *           minIndex = j
+ *       end if
+ *   end for
+ *   Swap(arr[i], arr[minIndex])
+ * end for
+ *
+ * Implement selection sort below, it might be helpful to use the swapInts
+ * function you defined earlier.
  *
  * ALLOWED:
  *   Pointer operators: *, &
  *   Binary integer operators: -, +, *, ==, !=, <, >
  *   Unary integer operators: !
- *   Shorthand operators based on the above: ex. <<=, *=, ++, --, etc.
- *   Control constructs: for, while
+ *   Shorthand operators based on the above: ex. +=, *=, ++, --, etc.
+ *   Control constructs: for, while, if
+ *   Function calls: swapInt()
  *
  * DISALLOWED:
  *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <<, >>, ^, /, %
+ *   Binary integer operators: &, &&, |, ||, <<, >>, ^, /
  *   Unary integer operators: ~, -
  */
-int stringLength(char * s) {
-  // Your code here
-  return 2;
+void selectionSort(int *arr, int len)
+{
+  int i, swap_idx;
+
+  for (i = 0; i < len; i++)
+  {
+    // TODO: use smallest_idx to find index of
+    // smallest element in arr starting from index i
+
+    // TODO: Swap the element into place
+    // Hint: use the '&' ("address of") operator.
+    swap_idx = i + smallest_idx(&arr[i], len - i);
+    swapInts(&arr[i], &arr[swap_idx]);
+  }
+}
+
+int smallest_idx(int *arr, int len)
+{
+  int i;
+  int smallest_i = 0;
+  int smallest = arr[0];
+
+  // TODO: implement me using a for loop.
+  for (i = 0; i < len; i = i + 1)
+  {
+    if (arr[i] < smallest)
+    {
+      smallest = arr[i];
+      smallest_i = i;
+    }
+  }
+  return smallest_i;
 }
 
 /*
@@ -282,50 +333,44 @@ int stringLength(char * s) {
  *   Binary integer operators: &, &&, |, ||, <, >, <<, >>, ==, !=, ^, /, %
  *   Unary integer operators: ~, -
  */
-int endianExperiment(int* ptr) {
+int endianExperiment(int *ptr)
+{
   char *bytePtr;
+  bytePtr = ptr;
   // Your code here
+  *bytePtr = 0x77;
+  bytePtr++;
+  *bytePtr = 0x5C;
+  bytePtr++;
+  *bytePtr = 0x05;
+  bytePtr++;
+  *bytePtr = 0x0;
   return *ptr;
 }
-
 /*
- * Selection sort is a sorting algorithim that works by partitioning the array into
- * a sorted section and unsorted section. Then it repeatedly selects the minimum element
- * from the unsorted section and moves it to the end of the sorted section.
- *
- * So the pseudo-code might look something like this:
- * arr - an array
- * n - the length of arr
- *
- * for i = 0 to n - 1
- *   minIndex = i
- *   for  j = i + 1 to n - 1
- *       if arr[minIndex] > arr[j]
- *           minIndex = j
- *       end if
- *   end for
- *   Swap(arr[i], arr[minIndex])
- * end for
- *
- * Implement selection sort below, it might be helpful to use the swapInts function you
- * defined earlier.
+ * In C characters are are terminated by the null character ('\0')
+ * given a pointer to the start of the string return the length of this string.
+ * (The null character is not counted as part of the string length.)
  *
  * ALLOWED:
  *   Pointer operators: *, &
  *   Binary integer operators: -, +, *, ==, !=, <, >
  *   Unary integer operators: !
- *   Shorthand operators based on the above: ex. +=, *=, ++, --, etc.
- *   Control constructs: for, while, if
- *   Function calls: swapInt()
+ *   Shorthand operators based on the above: ex. <<=, *=, ++, --, etc.
+ *   Control constructs: for, while
  *
  * DISALLOWED:
  *   Pointer operators: [] (Array Indexing Operator)
- *   Binary integer operators: &, &&, |, ||, <<, >>, ^, /
+ *   Binary integer operators: &, &&, |, ||, <<, >>, ^, /, %
  *   Unary integer operators: ~, -
  */
-void selectionSort(int arr[], int arrLength) {
-  int i, j, min_index;
+int stringLength(char * s) {
   // Your code here
+  int len = 0;
+  char *c = s;
+  while(*c != '\0') {
+    len++;
+    c = s + len;
+  }
+  return len;
 }
-
-
