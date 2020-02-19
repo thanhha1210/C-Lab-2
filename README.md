@@ -1,5 +1,22 @@
 # Lab 2: Pointers in C
 
+- [Lab 2: Pointers in C](#Lab-2-Pointers-in-C)
+  - [GRADING](#GRADING)
+  - [RULES](#RULES)
+  - [Learning Objectives:](#Learning-Objectives)
+  - [FILES TO BE MODIFIED](#FILES-TO-BE-MODIFIED)
+  - [Instructions](#Instructions)
+  - [1 Using Pointers](#1-Using-Pointers)
+  - [2 Pointer Arithmetic (3 points)](#2-Pointer-Arithmetic-3-points)
+  - [3 Manipulating Data Using Pointers (2 points)](#3-Manipulating-Data-Using-Pointers-2-points)
+  - [4 Pointers and Address Ranges (2 points)](#4-Pointers-and-Address-Ranges-2-points)
+  - [5 Byte Traversal (2 points)](#5-Byte-Traversal-2-points)
+  - [6 Selection Sort (1 point)](#6-Selection-Sort-1-point)
+  - [Checking Your Work](#Checking-Your-Work)
+  - [To submit](#To-submit)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 ## GRADING
 
 - Show your test completion to the TA and Check in the code.
@@ -35,11 +52,11 @@ You will start working with basic pointers and use them to compute the size of d
 
 ---
 
-### Using Pointers
+## 1 Using Pointers
 
 This section describes the functions you will be completing in `pointer.c` found in the repo you cloned. Refer to the file `pointer.c` itself for more complete details.
 
-## 1 - Pointer Arithmetic (3 points)
+## 2 Pointer Arithmetic (3 points)
 
 ```
 intSize(),doubleSize(),pointerSize()
@@ -47,7 +64,7 @@ intSize(),doubleSize(),pointerSize()
 
 The first three functions in `pointer.c` ask you to compute the size (how much memory a single one takes up, in bytes) of various data elements (ints, doubles, and pointers). You will accomplish this by noting that arrays of these data elements allocate contiguous space in memory so that one element follows the next.
 
-## 2 - Manipulating Data Using Pointers (2 points)
+## 3 Manipulating Data Using Pointers (2 points)
 
 ```
 changeValue()
@@ -60,7 +77,7 @@ The `swapInts` function in `pointer.c` asks you to swap the values that two give
 
 The `changeValue` function in `pointer.c` asks you to change the value of an element of an array using only the starting address of the array. You will add the appropriate value to the pointer to create a new pointer to the data element to be modified.**_You are not permitted to use \[\] syntax to access or change elements in the array anywhere in the `pointer.c` file._**
 
-## 3 - Pointers and Address Ranges (2 points)
+## 4 Pointers and Address Ranges (2 points)
 
 ```
 withinSameBlock()
@@ -116,7 +133,7 @@ For the last function you will determine if the address stored in `ptr` is point
 
 Please post on Piazza if you are having trouble understanding any of these examples!
 
-## 4 - Byte Traversal (2 points)
+## 5 Byte Traversal (2 points)
 
 ```
 stringLength()
@@ -129,7 +146,7 @@ In C strings do not have knowledge of how long they are. In order to find out we
 
 The `endianExperiment` function has you set the value a pointer points to to the number 351351. Remember that we work with little endian data storage, and what that means.
 
-## 5 - Selection Sort (1 point)
+## 6 Selection Sort (1 point)
 
 ```
 smallest_idx
@@ -192,9 +209,10 @@ We have included the following tools to help you check the correctness of your w
 
 - The `dlc` program will also complain about binary constants such as `0b10001000`, so avoid using them.
 
-## 6 - Reflection
+## To submit
 
-Fill out and check in file `Reflect.txt`!
+- Commit the code to your repository.
+- Fill out and check in file `Reflect.txt`!
 
 In `pointer.c`, we saw the effects of pointers and pointer arithmetic:
 
