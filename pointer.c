@@ -162,7 +162,7 @@ int pointerSize()
  */
 
 /*
- * Modify intArray[5] to be the value 351 using only intArray and pointer
+ * Modify intArray[5] to be the value 295 using only intArray and pointer
  * arithmetic.
  */
 int changeValue()
@@ -171,12 +171,12 @@ int changeValue()
   int *intPtr1 = intArray;
   // Remember not to use constants greater than 255.
   // Remember to use * to dereference. You cannot use '[<index>]' syntax.
-  // (351) = Ox 0001 0101 1111
+  // (295) = Ox 0001 0010 0111
   // intPtr5 points to the address of 5th element by (first elemnt address +  5
   // * sizeof(int))
   // * => dereference, change the value stored in the address
   int val1 = 0x1;
-  int val2 = 0x5F;
+  int val2 = 0x27;
   int val = (val1 << 8) + val2;
   int *intPtr5 = intPtr1 + 5;
   *intPtr5 = val;
@@ -289,8 +289,8 @@ void selectionSort(int *arr, int len)
 
     // TODO: Swap the element into place
     // Hint: use the '&' ("address of") operator.
-    swap_idx = i + smallest_idx(&arr[i], len - i);
-    swapInts(&arr[i], &arr[swap_idx]);
+    swap_idx = i + smallest_idx(arr+i, len - i);
+    swapInts(arr+i,arr+swap_idx);
   }
 }
 
@@ -298,14 +298,14 @@ int smallest_idx(int *arr, int len)
 {
   int i;
   int smallest_i = 0;
-  int smallest = arr[0];
+  int smallest = *arr;
 
   // TODO: implement me using a for loop.
   for (i = 0; i < len; i = i + 1)
   {
-    if (arr[i] < smallest)
+    if (*(arr+i) < smallest)
     {
-      smallest = arr[i];
+      smallest = *(arr+i);
       smallest_i = i;
     }
   }
@@ -338,11 +338,11 @@ int endianExperiment(int *ptr)
   char *bytePtr;
   bytePtr = ptr;
   // Your code here
-  *bytePtr = 0x77;
+  *bytePtr = 0x7F;
   bytePtr++;
-  *bytePtr = 0x5C;
+  *bytePtr = 0x81;
   bytePtr++;
-  *bytePtr = 0x05;
+  *bytePtr = 0x04;
   bytePtr++;
   *bytePtr = 0x0;
   return *ptr;

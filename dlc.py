@@ -87,6 +87,7 @@ restrict = {
   'stringLength': (tf_bad_binop, ff_bad_unary, af_bad_constant, af_bad_indexing),
   'endianExperiment': (ff_bad_binop, ff_bad_unary, af_bad_constant, af_bad_indexing),
   'selectionSort': (tf_bad_binop, ff_bad_unary, af_bad_constant, af_bad_indexing),
+    'smallest_idx': (ff_bad_unary, af_bad_constant, af_bad_indexing)
 }
 
 grading = len(sys.argv) == 2 and sys.argv[1] == '-g'
@@ -103,7 +104,8 @@ if grading:
     'swapInts': grades[6],
     'stringLength': grades[7], 
     'endianExperiment': grades[8], 
-    'selectionSort': grades[9]
+    'selectionSort': grades[9],
+    'smallest_idx': grades[10]
   }
 else:
   func_points = {
@@ -116,9 +118,10 @@ else:
     'swapInts': 1,
     'stringLength': 1, 
     'endianExperiment': 3, 
-    'selectionSort': 3
+    'selectionSort': 3,
+    'smallest_idx':1,
   }
-  grades = [1,1,1,1,3,3,1,1,3,3]
+  grades = [1,1,1,1,3,3,1,1,3,3,1]
 
 try:
   dlc_output = subprocess.check_output(['./dlc', '-ast', './pointer.c'], stderr=subprocess.STDOUT)
@@ -127,9 +130,9 @@ except subprocess.CalledProcessError as e:
 
 pointer_funcs = dlc_output.split("Proc:\n  Decl: ")
 
-if len(pointer_funcs) != 11:
-  print "dlc.py failed to parse functions, check pointer.c manually"
-  sys.exit(0)
+if len(pointer_funcs) != 12:
+  print "dlc.py detects more functions then specified"
+#  sys.exit(0)
 
 if "undeclared!" in dlc_output:
   print "dlc.py failed due to out of order declaration, check pointer.c manually"
@@ -146,6 +149,7 @@ seen_bad_ops = {
   'stringLength': [],
   'endianExperiment': [],
   'selectionSort': [],
+  'smallest_idx': []
 }
 final_grade = []
 skip_next_line = False

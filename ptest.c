@@ -59,7 +59,7 @@ static test tests[] = {
     { "intSize()",      intSize,        sizeof(int) },
     { "doubleSize()",   doubleSize,     sizeof(double) },
     { "pointerSize()",  pointerSize,    sizeof(void *) },
-    { "changeValue()",  changeValue,    351 },
+    { "changeValue()",  changeValue,    295 },
     { NULL, NULL, 0 }
 };
 
@@ -98,7 +98,7 @@ static stringLength_args strlen_args[] = {
 
 static int ptr = 0;
 static endianExperiment_args endianExp_args[] = {
-  { "endianExperiment()" , &ptr , 351351},
+  { "endianExperiment()" , &ptr , 295295},
   { NULL, NULL, 0 }
 };
 
