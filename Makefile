@@ -5,11 +5,11 @@ CC = gcc
 CFLAGS =  -Wall  -g -I./
 LIBS = -lm
 
-ptest: ptest.c pointer.c common.c common.h
-	$(CC) $(CFLAGS) -Wno-unused-variable -o ptest ptest.c pointer.c common.c
+ptest.bin: ptest.c pointer.c common.c common.h
+	$(CC) $(CFLAGS) -Wno-unused-variable -o ptest.bin ptest.c pointer.c common.c
 
 clean:
 	rm -f *.o ptest *~
 
-test: ptest
-	./ptest
+test: ptest.bin
+	./ptest.bin
