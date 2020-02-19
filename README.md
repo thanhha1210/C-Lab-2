@@ -2,8 +2,7 @@
 
 ## GRADING
 
-- Part 1,2,3 to be completed by lab end. Show your test completion to the TA
-- Part 4,5,6 to be completed and committed by end of the day.
+- Show your test completion to the TA and Check in the code.
 
 ## RULES
 
@@ -133,11 +132,12 @@ The `endianExperiment` function has you set the value a pointer points to to the
 ## 5 - Selection Sort (1 point)
 
 ```
-selectionSort
+smallest_idx
 ```
 
-The final part of the lab has you implement `selectionSort`. Selection sort works by effectively partitioning an array into a sorted section, followed by an unsorted section. It repeatedly finds (and selects) the minimum element in the unsorted section, and moves it to the end of the sorted section (`swapInts` might be useful for this). The pseudo code might look something like this:
+The final part of the lab has you implement and complete `selectionSort`. Selection sort works by effectively partitioning an array into a sorted section, followed by an unsorted section. It repeatedly finds (and selects) the minimum element in the unsorted section, and moves it to the end of the sorted section (`swapInts`, `smallest_idx` might be useful for this). The pseudo code might look something like this:
 
+```
     arr - an array
     n - the length of arr
 
@@ -150,6 +150,9 @@ The final part of the lab has you implement `selectionSort`. Selection sort work
       end for
       Swap(arr[i], arr[minIndex])
     end for
+```
+
+**We have already provided the implementation of selection sort (What we want you to implement is minfinder j loop in smallest_idx**
 
 Note that you **are** allowed to use loops and if statements in this one.
 

@@ -9,7 +9,7 @@ ptest.bin: ptest.c pointer.c common.c common.h
 	$(CC) $(CFLAGS) -Wno-unused-variable -o ptest.bin ptest.c pointer.c common.c
 
 clean:
-	rm -f *.o ptest *~
+	rm -f *.o ptest.bin *~
 
 test: ptest.bin
 	./ptest.bin
