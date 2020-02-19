@@ -116,7 +116,7 @@ For the last function you will determine if the address stored in `ptr` is point
 
 Please post on Piazza if you are having trouble understanding any of these examples!
 
-#### 4 - Byte Traversal (2 points)
+## 4 - Byte Traversal (2 points)
 
 ```
 stringLength()
@@ -158,7 +158,7 @@ Note that you **are** allowed to use loops and if statements in this one.
 
 ---
 
-### Checking Your Work
+## Checking Your Work
 
 We have included the following tools to help you check the correctness of your work:
 
@@ -192,7 +192,7 @@ We have included the following tools to help you check the correctness of your w
 
 - The `dlc` program will also complain about binary constants such as `0b10001000`, so avoid using them.
 
-### 6 - Reflection
+## 6 - Reflection
 
 Fill out and check in file `Reflect.txt`!
 
