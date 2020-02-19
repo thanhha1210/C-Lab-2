@@ -1,5 +1,5 @@
 /*
- * CSE 351 Lab 1 (Data Lab - Pointers)
+  Lab 2(Data Lab  - Pointers)
  *
  * <PLEASE REPLACE THIS LINE WITH YOUR NAME AND STUDENT USERNAME>
  *
