@@ -144,7 +144,7 @@ The next two questions in `pointer.c` have you reading and writing data by under
 
 In C strings do not have knowledge of how long they are. In order to find out we must calculate it for ourselves. All strings in C are arrays of characters that end with a null terminator character - `'\0'`. The `stringLength` function has you return the length of a string, given a pointer to its beginning. You **are** allowed to use loops for this one. Also note that the null terminator character does **_NOT_** count as part of the string length.
 
-The `endianExperiment` function has you set the value a pointer points to to the number 351351. Remember that we work with little endian data storage, and what that means.
+The `endianExperiment` function has you set the value a pointer points to to the number 295295. Remember that we work with little endian data storage, and what that means.
 
 ## 6 Selection Sort (1 point)
 
