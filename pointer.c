@@ -181,7 +181,7 @@ void swapInts(int *ptr1, int *ptr2) {
 }
 
 /*
- * Modify intArray[5] to be the value 351 using only intArray and pointer
+ * Modify intArray[5] to be the value 295 using only intArray and pointer
  * arithmetic.
  *
  * ALLOWED:
@@ -281,7 +281,7 @@ int stringLength(char *s) {
  * Hint: Remember how little endian works for data storage, how is it different
  * between an multiple bytes(int) and a single byte?
  *
- * Hint: It will be easiest to start convert 351351 into binary form and
+ * Hint: It will be easiest to start convert 295295 into binary form and
  * starting seeing how the endian works from there.
  *
  * ALLOWED:
