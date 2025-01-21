@@ -255,9 +255,8 @@ int changeValue() {
  */
 int withinSameBlock(int *ptr1, int *ptr2) {
   // Your code here
-
-  return 1;
-
+  // Shift 64 -> divide everything to 64.
+  return ((int)ptr1 >> 6) == ((int)ptr2 >> 6);
 }
 
 /*
@@ -281,8 +280,18 @@ int withinSameBlock(int *ptr1, int *ptr2) {
  */
 int withinArray(int *intArray, int size, int *ptr) {
   // Your code here
+  /*
+    Idea: 
+      Normalize the addresses by shifting right by 2 (dividing by 4)
+      This gives us the "index" of the pointer in the array in terms of elements.
+  */
+ 
   
-  return 2;
+  int *end = intArray + size;
+  
+  // Check if ptr is within bounds using the normalized (shifted) values. 
+  // Each equation return either 0/ 1, bitwise & means only true when 1 & 1
+  return (((int)ptr >> 2) >= ((int)intArray >> 2)) & (((int)ptr >> 2) < ((int)end >> 2));
 }
 
 /*

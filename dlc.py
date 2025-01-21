@@ -129,14 +129,15 @@ try:
 except subprocess.CalledProcessError as e:
   dlc_output = e.output
 
+
 pointer_funcs = dlc_output.split("Proc:\n  Decl: ")
 
 if len(pointer_funcs) != 12:
-  print "dlc.py detects more functions then specified"
+  print ("dlc.py detects more functions then specified")
 #  sys.exit(0)
 
 if "undeclared!" in dlc_output:
-  print "dlc.py failed due to out of order declaration, check pointer.c manually"
+  print ("dlc.py failed due to out of order declaration, check pointer.c manually")
   sys.exit(0)
 
 seen_bad_ops = {
@@ -157,8 +158,8 @@ skip_next_line = False
 seen_given_bad_op = False
 last_line_return = False
 for func, grade in zip(pointer_funcs[1:], grades):
-  lines = func.split("\n");
-  name = lines[0].split(" ")[0];
+  lines = func.split("\n")
+  name = lines[0].split(" ")[0]
   for line in func.split("\n"):
     # skip over any constant values that preceed a "Value:"
     # ast node, these are computed constants, not ones that the
@@ -219,8 +220,8 @@ if grading:
         "bad_ops": seen_bad_ops[name]
       }
 
-  print json.dumps(json_output)
+  print (json.dumps(json_output))
 
 else:
   output += str([k + ': ' + str(v) for k, v in seen_bad_ops.iteritems() if len(seen_bad_ops[k])])
-  print output.rstrip("\t")
+  print (output.rstrip("\t"))
