@@ -1,7 +1,7 @@
 /*
   Lab 2(Data Lab  - Pointers)
  *
- * <PLEASE REPLACE THIS LINE WITH YOUR NAME AND STUDENT USERNAME>
+ * <Irene Luu - hdl4>
  *
  * pointer.c - Source file with your solutions to the Lab.
  *             This is the file you will hand in to your instructor.
@@ -111,10 +111,27 @@ int intSize() {
   int *intPtr1;
   int *intPtr2;
   // Write code to compute size of an integer.
+  /*
+    Idea: Use Pointers: 
+      1. Declare 2 int pointer
+      2. set them to consecutive int element 
+      3. Compute different between 2 pointers
+  */
+  intPtr1 = intArray;
+  intPtr2 = intArray + 1;
+  // printf("%x\n", intPtr2);
+  // printf("%x\n", intPtr1);
+  // printf("%p\n", intPtr2 - intPtr1);  
+  // Pointer Arithmetric: When subtract 2 pointers point to element of the same array, result
+  // NUMBER OF ELEMENTS between 2 points, not NUMBER OF BYTE 
 
-  return 2;
+  char *bytePtr1 = (char *)intPtr1; // cast b/c char is always 1 byte in size
+  char *bytePtr2 = (char *)intPtr2;
+  // each increment of the pointer in pointer arithmetic corresponds to 1 byte. 
+  // This allows you to directly calculate the address difference in bytes.
+  // Calculate the address difference in bytes
+  return bytePtr2 - bytePtr1;
 }
-
 /*
  * Return the size of a double in bytes.
  *
@@ -134,8 +151,13 @@ int doubleSize() {
   double *doubPtr1;
   double *doubPtr2;
   // Write code to compute size of a double.
+  doubPtr1 = doubArray;
+  doubPtr2 = doubArray + 1;
 
-  return 2;
+  char* c1 = (char*) doubPtr1;
+  char* c2 = (char*) doubPtr2;
+
+  return c2 - c1;
 }
 
 /*
@@ -158,7 +180,13 @@ int pointerSize() {
   double **ptrPtr2;
   // Write code to compute size of a pointer.
 
-  return 2;
+  ptrPtr1 = ptrArray;
+  ptrPtr2 = ptrArray + 1;
+
+  char *c1 = (char*) ptrPtr1;
+  char *c2 = (char*) ptrPtr2;
+
+  return c2 - c1;
 }
 
 /*
@@ -178,6 +206,9 @@ int pointerSize() {
  */
 void swapInts(int *ptr1, int *ptr2) {
   // Your code here
+  int temp = *ptr1;
+  *ptr1 = *ptr2;
+  *ptr2 = temp;  
 }
 
 /*
@@ -200,6 +231,7 @@ int changeValue() {
   int *intPtr1 = intArray;
   // Remember not to use constants greater than 255.
   // Remember to use * to dereference. You cannot use '[<index>]' syntax.
+  *(intPtr1 + 5) = 255 + sizeof(intArray);
 
   return intArray[5];
 }
@@ -223,7 +255,9 @@ int changeValue() {
  */
 int withinSameBlock(int *ptr1, int *ptr2) {
   // Your code here
-  return 2;
+
+  return 1;
+
 }
 
 /*
@@ -247,6 +281,7 @@ int withinSameBlock(int *ptr1, int *ptr2) {
  */
 int withinArray(int *intArray, int size, int *ptr) {
   // Your code here
+  
   return 2;
 }
 
@@ -269,7 +304,13 @@ int withinArray(int *intArray, int size, int *ptr) {
  */
 int stringLength(char *s) {
   // Your code here
-  return 2;
+  char *cur = s;
+  int len = 0;
+  while (*cur != '\0') {
+    len++;
+    cur = cur + 1;
+  }
+  return len;
 }
 
 /*
@@ -298,6 +339,13 @@ int stringLength(char *s) {
 int endianExperiment(int *ptr) {
   char *bytePtr;
   // Your code here
+  // 295295 to hex = 0x4817F => 0x0004817F. Little endian: 7F, 81, 04, 00
+  bytePtr = (char*) ptr; // change byteptr to be start of ptr
+  *(bytePtr) = 0x7F;
+  *(bytePtr + 1) = 0x81;
+  *(bytePtr + 2) = 0x04;
+  *(bytePtr + 3) = 0x00;
+
   return *ptr;
 }
 
@@ -361,7 +409,12 @@ int smallest_idx(int *arr, int len) {
   int smallest = arr[0];
 
   // TODO: implement me using a for loop.
-
+  for (int i = 1; i < len; i++) {
+    if (smallest > *(arr + i)) {
+      smallest = *(arr + i);
+      smallest_i = i;
+    }
+  }
   return smallest_i;
 }
 
